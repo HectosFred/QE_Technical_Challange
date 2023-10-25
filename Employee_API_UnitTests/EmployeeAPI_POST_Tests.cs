@@ -49,5 +49,13 @@ namespace Employee_API_UnitTests
 
             Assert.AreEqual(response.Item1, 400);
         }
+
+        [TestMethod]
+        public async Task EmployeeAPI_POST_ValidateJsonSchemaOnEmployeeCreate()
+        {
+            Employee employee = new Employee();
+            Tuple<int, string> response = await ApiHandling.SendEmployeeCreateRequest(GlobalVariables.api_url, employee);
+            Assert.IsTrue(ApiHandling.IsEmployeeSchemaValid(response.Item2));
+        }
     }
 }

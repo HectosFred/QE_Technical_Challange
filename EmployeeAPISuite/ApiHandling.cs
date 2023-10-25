@@ -16,7 +16,7 @@ namespace QE_Tech_Chalange_API_Tests
 
     public class ApiHandling
     {
-        JSchema employee_schema = JSchema.Parse(@"{
+        private static JSchema employee_schema = JSchema.Parse(@"{
           'type': 'object',
           'properties': {
             'Employee': {
@@ -46,7 +46,7 @@ namespace QE_Tech_Chalange_API_Tests
                 'Mobile': {
                   'type': 'string'
                 },
-                'Adress': {
+                'Address': {
                   'type': 'string'
                 },
                 'BaseSalary': {
@@ -62,13 +62,17 @@ namespace QE_Tech_Chalange_API_Tests
                 'JobTitle',
                 'Email',
                 'Mobile',
-                'Adress',
+                'Address',
                 'BaseSalary'
               ]
+            },
+            '_id': {
+              'type': 'string'
             }
           },
           'required': [
-            'Employee'
+            'Employee',
+            '_id'
           ]
         }");
         //Create new employee within API, based on a given Employee object  
@@ -244,6 +248,12 @@ namespace QE_Tech_Chalange_API_Tests
                 }
             }
             throw new Exception("No matching employee");         
+        }
+
+        public static bool IsEmployeeSchemaValid(string employee_json_)
+        {
+            JObject employee = JObject.Parse(employee_json_);
+            return employee.IsValid(employee_schema);
         }
     }
 

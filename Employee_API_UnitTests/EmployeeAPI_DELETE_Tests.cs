@@ -22,7 +22,7 @@ namespace Employee_API_UnitTests
             Employee employee = new Employee();
             Tuple<int, string> response = await ApiHandling.SendEmployeeCreateRequest(GlobalVariables.api_url, employee);
             Assert.AreEqual(response.Item1, 201);
-            //Get the employee id of the newly created employee
+            //Get the employee id from the response JSON
             string employee_id = (string)JObject.Parse(response.Item2)["_id"];
             //Get the employee id for the above created user so we can confirm it matches the employee id returned in the response to the POST request. Just to make sure the employee is visible in the system
             string fetched_employee_id = await ApiHandling.GetEmployeeIdFromFirstAndLastName(employee.first_name_, employee.last_name_, GlobalVariables.api_url);

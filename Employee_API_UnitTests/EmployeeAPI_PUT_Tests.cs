@@ -84,5 +84,27 @@ namespace Employee_API_UnitTests
 
             Assert.AreEqual(response.Item1, 404);
         }
+
+        [TestMethod]
+        public async Task EmployeeAPI_PUT_ValidateJsonSchemaOnEmployeeCreate()
+        {
+            //Make and upload new employee
+            Employee employee = new Employee();
+            Tuple<int, string> response = await ApiHandling.SendEmployeeCreateRequest(GlobalVariables.api_url, employee);
+            //Get EmployeeId for newly created employee
+            string employee_id = (string)JObject.Parse(response.Item2)["_id"];
+
+            //Update first and last name of the previously uploaded employee object
+            employee.first_name_ = "Test test test";
+            employee.last_name_ = "Test test test";
+            //Send updated employee object as an update request the existing employeer record
+            response = await ApiHandling.SendEmployeeUpdateRequest(GlobalVariables.api_url, employee_id, employee);
+            Assert.AreEqual(response.Item1, 200);
+
+            //Get updated employee
+            response = await ApiHandling.SendEmployeeGetRequest(GlobalVariables.api_url, employee_id);   
+            //Asser schema of updated employee is valid
+            Assert.IsTrue(ApiHandling.IsEmployeeSchemaValid(response.Item2));
+        }
     }
 }
