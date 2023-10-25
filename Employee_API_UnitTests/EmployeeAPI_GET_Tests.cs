@@ -46,12 +46,13 @@ namespace Employee_API_UnitTests
             response = await ApiHandling.SendEmployeeGetRequest(GlobalVariables.api_url, employee_id);
 
             Assert.AreEqual(response.Item1, 200);
+            //Confirm the fetched employee is the same as the employee we created above
             Assert.IsTrue(Employee.Equals(employee, new Employee(JObject.Parse(response.Item2))));
         }
 
         //Assert that when providing an invalid employee id the api returns 404 NOT FOUND
         [TestMethod]
-        public async Task EmployeeAPI_GET_RequestSingleEmployeeUsingInvalidEmployeeId_Returns400BadRequest()
+        public async Task EmployeeAPI_GET_RequestSingleEmployeeUsingInvalidEmployeeId_Returns404NotFound()
         {
             //Get the employee id of the newly created employee
             string employee_id = "notavalidemployeeid";
