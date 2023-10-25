@@ -25,6 +25,7 @@ namespace Employee_API_UnitTests
 
 
             Assert.AreEqual(response.Item1, 201);
+            //Confirm that the returned employee is the same as the one uploade
             Assert.IsTrue(Employee.Equals(employee, new Employee(JObject.Parse(response.Item2))));
         }
 

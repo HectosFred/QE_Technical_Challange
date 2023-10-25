@@ -58,8 +58,10 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeAPI_DELETE_Tests.cs" />
     <Compile Include="EmployeeAPI_GET_Tests.cs" />
     <Compile Include="EmployeeAPI_POST_Tests.cs" />
+    <Compile Include="EmployeeAPI_PUT_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGlobalVariables.cs" />
   </ItemGroup>
